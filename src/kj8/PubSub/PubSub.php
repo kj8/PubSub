@@ -13,6 +13,10 @@ class PubSub {
 	private static $events = array();
 
 	public static function on($eventName, $callaback) {
+		if (isset(self::$events[$eventName])) {
+			throw new PubSubException('Event already exists!');
+		}
+		
 		if (!is_callable($callaback)) {
 			throw new PubSubException('Value is not callable!');
 		}
