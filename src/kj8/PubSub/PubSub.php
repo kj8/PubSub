@@ -36,4 +36,8 @@ class PubSub {
 		array_shift($params);
 		return call_user_func_array(self::$events[$eventName], $params);
 	}
+	
+	public static function keys() {
+		return array_keys(self::$events);
+	}
 }
