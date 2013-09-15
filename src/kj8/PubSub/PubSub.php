@@ -4,7 +4,7 @@ namespace kj8\PubSub;
 
 class PubSub {
 	private function __construct() {
-		
+
 	}
 	private function __clone() {
 
@@ -16,7 +16,7 @@ class PubSub {
 		if (isset(self::$events[$eventName])) {
 			throw new PubSubException('Event already exists!');
 		}
-		
+
 		if (!is_callable($callaback)) {
 			throw new PubSubException('Value is not callable!');
 		}
@@ -25,6 +25,20 @@ class PubSub {
 
 	public static function off($eventName) {
 		self::$events[$eventName] = null;
+	}
+
+	public static function extend($eventName, $callaback) {
+		if (!isset(self::$events[$eventName])) {
+			throw new PubSubException('Event does not exists!');
+		}
+
+		if (!is_callable(self::$events[$eventName])) {
+			throw new PubSubException('Value is not callable!');
+		}
+		
+		// TODO:
+		// extend existing event
+
 	}
 
 	public static function trigger($eventName) {
@@ -40,7 +54,7 @@ class PubSub {
 		array_shift($params);
 		return call_user_func_array(self::$events[$eventName], $params);
 	}
-	
+
 	public static function keys() {
 		return array_keys(self::$events);
 	}
