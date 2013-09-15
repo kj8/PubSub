@@ -3,6 +3,13 @@
 namespace kj8\PubSub;
 
 class PubSub {
+	private function __construct() {
+		
+	}
+	private function __clone() {
+
+	}
+
 	private static $events = array();
 
 	public static function on($eventName, $callaback) {
